@@ -917,7 +917,7 @@ export default function Home() {
               <div className="user-profile-email" title={authUser.email}>{authUser.email}</div>
             </div>
             <button className="btn-logout" onClick={handleLogout} title="Keluar Akun">
-              🚪
+              <span className="logout-icon">🚪</span>
             </button>
           </div>
 
@@ -1119,7 +1119,7 @@ export default function Home() {
                         <span className="btn-icon">✨</span> Ubah jadi To-Do
                       </button>
                       <button className="btn btn-secondary btn-chunky" onClick={handleLoadDemo}>
-                        <span className="btn-icon">💡</span> Coba Draf Jurnal (Demo)
+                        <span className="btn-icon">💡</span> Demo
                       </button>
                     </div>
                   </div>

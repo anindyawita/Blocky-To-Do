@@ -157,6 +157,10 @@ body {
     gap: 16px;
 }
 
+.auth-body .btn {
+    width: 100%;
+}
+
 .auth-form-group {
     display: flex;
     flex-direction: column;
@@ -172,9 +176,10 @@ body {
 /* LAYOUT CONTAINER */
 .app-container {
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 280px minmax(0, 1fr);
     min-height: 100vh;
     position: relative;
+    max-width: 100%;
 }
 
 /* SIDEBAR STYLING */
@@ -203,7 +208,6 @@ body {
     border: var(--border-width) solid var(--border-color);
     box-shadow: var(--btn-shadow);
     border-radius: 12px;
-    transform: rotate(-1deg);
 }
 
 .logo-icon {
@@ -254,19 +258,32 @@ body {
 }
 
 .btn-logout {
-    background: none;
-    border: none;
+    background-color: var(--pink-light);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--pink-deep);
-    transition: transform 0.15s ease;
+    box-shadow: 2px 2px 0px var(--border-color);
+    transition: all 0.1s ease;
+    flex-shrink: 0;
+    padding: 0;
 }
 
 .btn-logout:hover {
-    transform: scale(1.2);
+    background-color: var(--pink-primary);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.logout-icon {
+    font-size: 18px;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif;
+    line-height: 1;
+    display: inline-block;
 }
 
 .sidebar-content {
@@ -457,6 +474,7 @@ body {
     transition: all 0.1s ease;
     outline: none;
     user-select: none;
+    padding: 10px 20px;
 }
 
 .btn-icon {
@@ -580,7 +598,6 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
-    transform: rotate(0.5deg);
 }
 
 .project-info {
@@ -974,6 +991,7 @@ body {
 .todo-text-container {
     flex-grow: 1;
     overflow: hidden;
+    min-width: 0;
 }
 
 .todo-text {
@@ -1000,6 +1018,7 @@ body {
     color: var(--border-color);
     outline: none;
     padding: 2px 6px;
+    min-width: 0;
 }
 
 /* TODO ACTIONS */
@@ -1099,6 +1118,9 @@ body {
     border-radius: 20px;
     width: 90%;
     max-width: 460px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1110,6 +1132,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .modal-header h3 {
@@ -1132,10 +1155,11 @@ body {
 }
 
 .modal-body {
-    padding: 24px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    overflow-y: auto;
 }
 
 .modal-body label {
@@ -1198,6 +1222,7 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
+    flex-shrink: 0;
 }
 
 /* ONBOARDING TUTORIAL INTERFACE */
@@ -1223,6 +1248,7 @@ body {
     border-radius: 24px;
     width: 90%;
     max-width: 500px;
+    max-height: 90vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1234,6 +1260,7 @@ body {
     padding: 18px 24px;
     border-bottom: var(--border-width) solid var(--border-color);
     text-align: center;
+    flex-shrink: 0;
 }
 
 .onboarding-header h3 {
@@ -1243,8 +1270,9 @@ body {
 }
 
 .onboarding-body {
-    padding: 28px 24px;
+    padding: 24px;
     flex-grow: 1;
+    overflow-y: auto;
 }
 
 .onboarding-slide {
@@ -1302,6 +1330,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .onboarding-dots {
@@ -1352,7 +1381,7 @@ body {
 
 .welcome-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
     margin-bottom: 28px;
 }
@@ -1462,7 +1491,7 @@ body {
 
 @media (max-width: 768px) {
     .app-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         grid-template-rows: auto 1fr;
     }
 
@@ -1477,6 +1506,10 @@ body {
         border-bottom: var(--border-width) solid var(--border-color);
         padding: 16px;
         gap: 16px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
     }
 
     .sidebar-header {
@@ -1486,18 +1519,23 @@ body {
     .sidebar-content {
         overflow-y: visible;
         margin-top: 12px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     .project-list {
+        display: flex;
         flex-direction: row;
-        overflow-x: auto;
+        flex-wrap: wrap;
         padding-bottom: 8px;
         gap: 10px;
     }
 
     .project-item {
         flex-shrink: 0;
-        min-width: 160px;
+        flex-grow: 1;
+        min-width: 140px;
     }
 
     .btn-add-project {
@@ -1515,6 +1553,9 @@ body {
         gap: 20px;
         height: auto;
         overflow-y: visible;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
     }
 
     .workspace-header {
@@ -1522,11 +1563,16 @@ body {
         align-items: flex-start;
         gap: 16px;
         transform: none;
+        padding: 16px;
     }
 
     .progress-xp-container {
         width: 100%;
         max-width: 100%;
+    }
+
+    .card {
+        padding: 16px;
     }
 
     .action-row {
@@ -1545,5 +1591,12 @@ body {
 
     .btn-copy-prompt {
         width: 100%;
+    }
+}
+
+/* Show task actions by default on touch/mobile viewports */
+@media (hover: none), (max-width: 768px) {
+    .btn-todo-action {
+        opacity: 0.8 !important;
     }
 }
